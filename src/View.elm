@@ -22,11 +22,11 @@ div_style = style [
 
 view_status model =
   let
-    w = winner model.grid
+    w = winner model
   in
     text (
       if (not (w == "")) then w ++ " won!"
-      else if (draw model.grid) then "draw!"
+      else if (draw model) then "draw!"
       else model.player ++ "'s turn."
     )
 

@@ -2,17 +2,42 @@ module Util where
 
 import List exposing (..)
 
+rows grid =
+  map (\i -> row grid i) (size_range grid)
+
+cols grid =
+  map (\i -> col grid i) (size_range grid)
+
+diags grid =
+  [diag grid, rdiag grid]
+
 row grid r =
-  (cell grid r 0) ++ (cell grid r 1) ++ (cell grid r 2)
+  path (\i -> (r, i)) grid
 
 col grid c =
-  (cell grid 0 c) ++ (cell grid 1 c) ++ (cell grid 2 c)
+  path (\i -> (i, c)) grid
   
 diag grid =
-  (cell grid 0 0) ++ (cell grid 1 1) ++ (cell grid 2 2)
+  path (\i -> (i, i)) grid
   
 rdiag grid =
-  (cell grid 0 2) ++ (cell grid 1 1) ++ (cell grid 2 0)
+  let
+    n = List.length grid
+  in
+    path (\i -> (i, n - 1 - i)) grid
+
+path f grid =
+  foldr (++) ""
+    (map
+       (\i -> let (x, y) = f(i) in grid_get_def grid x y)
+       (size_range grid))
+
+range a b =
+  if a > b then []
+  else a :: (range (a + 1) b)
+
+size_range grid =
+  range 0 (List.length grid - 1)
 
 map_grid f grid =
   map_grid2 f grid 0
@@ -34,14 +59,17 @@ map_row f row x y =
        (map_row f rest x (y+1))
 
 cell grid x y =
-  let
-    row  = 
-      head (drop x grid)
-    cell =
-      case row of
-        Just r -> head (drop y r)
-        Nothing -> Nothing
-  in
-    case cell of
-      Just c -> c
-      Nothing -> ""
+  grid_get_def grid x y
+
+list_get list x =
+  head (drop x list)
+
+grid_get grid x y =
+  case list_get grid x of
+    Just r -> list_get r y
+    Nothing -> Nothing
+
+grid_get_def grid x y =
+  case grid_get grid x y of
+    Just c -> c
+    Nothing -> ""

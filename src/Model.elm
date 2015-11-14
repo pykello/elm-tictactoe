@@ -6,26 +6,28 @@ import Util exposing (..)
 
 type Action = ClickCell Int Int | Reset
 
-init = {
-  grid = [[" ", " ", " "], [" ", " ", " "], [" ", " ", " "]],
-  player = "X"}
+init size = {
+  grid = List.repeat size (List.repeat size " "),
+  player = "X",
+  size = size}
 
-game_over grid =
-  not ((winner grid) == "") &&
-  not (draw grid)
+game_over model =
+  not ((winner model) == "") &&
+  not (draw model)
   
-winner grid =
+winner model =
   let
-    paths = [
-      (row grid 0), (row grid 1), (row grid 2),
-      (col grid 0), (col grid 1), (col grid 2),
-      (diag grid), (rdiag grid)
-    ]
+    grid = model.grid
+    paths = List.concat [rows grid, cols grid, diags grid]
+    xpath = String.repeat model.size "X"
+    opath = String.repeat model.size "O"
   in
-    if (List.member "XXX" paths) then "X"
-    else if (List.member "OOO" paths) then "O"
+    if (List.member xpath paths) then "X"
+    else if (List.member opath paths) then "O"
     else ""
 
-draw grid =
-  not (String.contains " "
-    ((row grid 0) ++ (row grid 1) ++ (row grid 2)))
+draw model =
+  let
+    all_cells = String.concat (rows model.grid)
+  in
+    not (String.contains " " all_cells)
