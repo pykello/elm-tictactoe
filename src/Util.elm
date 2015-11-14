@@ -14,9 +14,6 @@ diag grid =
 rdiag grid =
   (cell grid 0 2) ++ (cell grid 1 1) ++ (cell grid 2 0)
 
-invalid_move grid x y =
-  not ((cell grid x y) == " ")
-
 map_grid f grid =
   map_grid2 f grid 0
 

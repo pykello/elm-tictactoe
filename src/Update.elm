@@ -23,3 +23,6 @@ play model x y =
         model.grid,
     player = if model.player == "X" then "O" else "X"
   }
+
+invalid_move grid x y =
+  not ((cell grid x y) == " ")
