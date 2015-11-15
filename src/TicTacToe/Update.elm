@@ -21,7 +21,7 @@ update action model =
 play model x y =
   {
     grid = 
-      map_grid
+      Grid.map
         (\cell xx yy -> if (xx, yy) == (x, y) then model.player else cell)
         model.grid,
     player = if model.player == "X" then "O" else "X",
@@ -34,4 +34,3 @@ invalid_move grid x y =
       not (value == " ")
     Nothing ->
       True
-

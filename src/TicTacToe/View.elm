@@ -7,7 +7,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (onClick)
 
 import TicTacToe.Model exposing (..)
-import TicTacToe.Util exposing (..)
+import TicTacToe.Grid as Grid exposing (..)
 
 view address model =
   div []
@@ -51,6 +51,6 @@ create_table grid f =
   table []
     (List.map
        (\row -> tr [] row)
-       (map_grid
+       (Grid.map
           (\cell x y -> td [] [f cell x y])
           grid))
