@@ -1,5 +1,5 @@
 module TicTacToe.Grid
-  (Grid, create, rows, cols, diag, rdiag, get, map)
+  (Grid, create, rows, cols, diag, rdiag, get, set, map)
   where
 
 import List exposing (..)
@@ -60,6 +60,11 @@ get grid x y =
   case List.head (List.drop x grid) of
     Just r -> List.head (List.drop y r)
     Nothing -> Nothing
+
+{-| Set the element with the given indexes in the grid. -}
+set: Grid a -> Int -> Int -> a -> Grid a
+set grid x y value =
+  map (\cell xx yy -> if (xx, yy) == (x, y) then value else cell) grid
 
 {-| Apply the given (value, row, col) -> mapped_value function to the
 elements of the grid.
