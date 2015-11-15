@@ -19,7 +19,7 @@ game_over model =
 winner model =
   let
     grid = model.grid
-    paths = List.concat [rows grid, cols grid, diags grid]
+    paths = List.concat [rows grid, cols grid, [diag grid, rdiag grid]]
     xpath = List.repeat model.size "X"
     opath = List.repeat model.size "O"
   in
