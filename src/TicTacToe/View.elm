@@ -9,19 +9,16 @@ import Html.Events exposing (onClick)
 import TicTacToe.Model exposing (..)
 import TicTacToe.Grid as Grid exposing (..)
 
+{-| Main game view. -}
 view address model =
   div []
   [
     div [div_style] [view_status model],
     div [div_style] [view_grid address model.grid],
-    div [div_style] [view_reset address]
+    div [div_style] [view_reset_button address]
   ]
 
-div_style = style [
-  ("padding", "5px"),
-  ("text-align", "center"),
-  ("width", "165px")]
-
+{-| Game status view. -}
 view_status model =
   text (
     case (get_winner model, is_draw model) of
@@ -30,25 +27,37 @@ view_status model =
       (_, True) -> "draw!"
   )
 
+{-| Game grid view. -}
 view_grid address grid =
-  create_table grid (
-    \cell x y ->
-       button [
-         style [("height", "50px"), ("width", "50px")],
-         onClick address (ClickCell x y)
-       ] [text cell]
-   )
-   
-view_reset address =
+  let
+    cell_view = \cell x y ->
+                  td[] [
+                    button [
+                      cell_button_style,
+                      onClick address (ClickCell x y)
+                    ] [text cell]
+                  ]
+    cell_grid = Grid.map cell_view grid
+    rows = List.map (\row -> tr [] row) cell_grid
+  in
+    table [] rows
+
+{-| Reset button view. -}
+view_reset_button address =
   button [
-    style [("padding", "5px")],
+    reset_button_style,
     onClick address Reset
   ][text "New Game"]
 
-create_table grid f =
-  table []
-    (List.map
-       (\row -> tr [] row)
-       (Grid.map
-          (\cell x y -> td [] [f cell x y])
-          grid))
+{-| Styles. -}
+div_style = style [
+  ("padding", "5px"),
+  ("text-align", "center"),
+  ("width", "165px")]
+
+cell_button_style = style [
+  ("height", "50px"),
+  ("width", "50px")]
+
+reset_button_style = style [
+  ("padding", "5px")]
