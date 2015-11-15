@@ -1,7 +1,10 @@
-module Update where
+module TicTacToe.Update
+  (update)
+  where
 
-import Model exposing (..)
-import Util exposing (..)
+import TicTacToe.Model exposing (..)
+import TicTacToe.Util exposing (..)
+import TicTacToe.Grid as Grid exposing (..)
 
 update action model =
   case action of
@@ -26,4 +29,9 @@ play model x y =
   }
 
 invalid_move grid x y =
-  not ((cell grid x y) == " ")
+  case Grid.get grid x y of
+    Just value ->
+      not (value == " ")
+    Nothing ->
+      True
+

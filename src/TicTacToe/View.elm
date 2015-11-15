@@ -1,11 +1,13 @@
-module View where
+module TicTacToe.View
+  (view)
+  where
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick)
 
-import Model exposing (..)
-import Util exposing (..)
+import TicTacToe.Model exposing (..)
+import TicTacToe.Util exposing (..)
 
 view address model =
   div []

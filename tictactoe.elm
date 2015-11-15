@@ -1,9 +1,9 @@
 module TicTacToe where
 
 import StartApp.Simple as StartApp
-import Model exposing (init)
-import View exposing (view)
-import Update exposing (update)
+import TicTacToe.Model exposing (init)
+import TicTacToe.View exposing (view)
+import TicTacToe.Update exposing (update)
 
 main =
   StartApp.start { model = init 4, view = view, update = update }

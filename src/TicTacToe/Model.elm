@@ -1,13 +1,14 @@
-module Model where
+module TicTacToe.Model where
 
 import List exposing (..)
 import String exposing (..)
-import Util exposing (..)
+import TicTacToe.Util exposing (..)
+import TicTacToe.Grid as Grid exposing (..)
 
 type Action = ClickCell Int Int | Reset
 
 init size = {
-  grid = List.repeat size (List.repeat size " "),
+  grid = Grid.create size size " ",
   player = "X",
   size = size}
 
@@ -19,8 +20,8 @@ winner model =
   let
     grid = model.grid
     paths = List.concat [rows grid, cols grid, diags grid]
-    xpath = String.repeat model.size "X"
-    opath = String.repeat model.size "O"
+    xpath = List.repeat model.size "X"
+    opath = List.repeat model.size "O"
   in
     if (List.member xpath paths) then "X"
     else if (List.member opath paths) then "O"
@@ -28,6 +29,6 @@ winner model =
 
 draw model =
   let
-    all_cells = String.concat (rows model.grid)
+    all_cells = List.concat (rows model.grid)
   in
-    not (String.contains " " all_cells)
+    not (List.member " " all_cells)
