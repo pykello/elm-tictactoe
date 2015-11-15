@@ -36,15 +36,11 @@ diag grid =
 
 rdiag: Grid a -> List a
 rdiag grid =
-  diag (vflip grid)
+  diag (List.map List.reverse grid)
 
 diags: Grid a -> List (List a)
 diags grid =
   [diag grid, rdiag grid]
-
-vflip: Grid a -> Grid a
-vflip grid =
-  List.map List.reverse grid
 
 get: Grid a -> Int -> Int -> Maybe a
 get grid x y =
