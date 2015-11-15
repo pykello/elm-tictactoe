@@ -3,22 +3,20 @@ module TicTacToe.Update
   where
 
 import TicTacToe.Model exposing (..)
-import TicTacToe.Util exposing (..)
 import TicTacToe.Grid as Grid exposing (..)
 
+{-| Update the game model based on the given action. -}
 update action model =
   case action of
     Reset ->
       init model.size
     ClickCell x y ->
-      if (not (game_over model) &&
-          not (invalid_move model.grid x y))
-      then
-         play model x y
+      if (not (is_game_over model) && (valid_move model.grid x y)) then
+         click_cell model x y
       else
          model
          
-play model x y =
+click_cell model x y =
   {
     grid = 
       Grid.map
@@ -28,9 +26,9 @@ play model x y =
     size = model.size
   }
 
-invalid_move grid x y =
+valid_move grid x y =
   case Grid.get grid x y of
     Just value ->
-      not (value == " ")
+      value == " "
     Nothing ->
-      True
+      False

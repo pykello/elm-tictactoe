@@ -23,14 +23,12 @@ div_style = style [
   ("width", "165px")]
 
 view_status model =
-  let
-    w = winner model
-  in
-    text (
-      if (not (w == "")) then w ++ " won!"
-      else if (draw model) then "draw!"
-      else model.player ++ "'s turn."
-    )
+  text (
+    case (get_winner model, is_draw model) of
+      (Nothing, False) -> model.player ++ "'s turn."
+      (Just winner, _) -> winner ++ " wins!"
+      (_, True) -> "draw!"
+  )
 
 view_grid address grid =
   create_table grid (

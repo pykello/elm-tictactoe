@@ -1,5 +1,5 @@
 module TicTacToe.Grid
-  (Grid, create, rows, cols, diag, rdiag, diags, get, map)
+  (Grid, create, rows, cols, diag, rdiag, get, map)
   where
 
 import List exposing (..)
