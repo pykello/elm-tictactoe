@@ -19,7 +19,7 @@ is_game_over: Model -> Bool
 is_game_over model =
   case (get_winner model, is_draw model) of
     (Nothing, False) -> False
-    (w, d) -> True
+    (_, _) -> True
 
 {-| Returns winner of the game (Just "X" or Just "O"). If no one has won yet,
 returns Nothing.
