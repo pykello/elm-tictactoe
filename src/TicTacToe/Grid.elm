@@ -39,13 +39,23 @@ i.e. all elements with indexes (i, i).
 diag: Grid a -> List a
 diag grid =
   let
-    rest = List.drop 1 (List.filterMap List.tail grid)
+    rest = grid |> drop_first_col |> drop_first_row
   in
     case get grid 0 0 of
       Just r ->
         r :: diag rest
       Nothing ->
         []
+
+{-| Drops the 1st row of the grid. -}
+drop_first_row: Grid a -> Grid a
+drop_first_row grid =
+  List.drop 1 grid
+
+{-| Drops the 1st column of the grid. -}
+drop_first_col: Grid a -> Grid a
+drop_first_col grid =
+  List.filterMap List.tail grid
 
 {-| Get the list of elements in the reverse diagonal of the grid.
 i.e. all elements with indexes (i, cols - 1 - i).
