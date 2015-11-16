@@ -26,7 +26,7 @@ cols: Grid a -> List (List a)
 cols grid =
   let
     first_col = List.filterMap List.head grid
-    rest = List.filterMap List.tail grid
+    rest = drop_first_col grid
   in
     if first_col == [] then
       []
