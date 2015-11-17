@@ -37,7 +37,7 @@ view_grid address grid =
                       onClick address (ClickCell x y)
                     ] [text cell]
                   ]
-    cell_grid = Grid.map cell_view grid
+    cell_grid = Grid.map cell_view grid |> Grid.toList
     rows = List.map (\row -> tr [] row) cell_grid
   in
     table [] rows

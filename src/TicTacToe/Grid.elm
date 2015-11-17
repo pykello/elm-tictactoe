@@ -1,5 +1,5 @@
 module TicTacToe.Grid
-  (Grid, create, rows, cols, diag, rdiag, get, set, map)
+  (Grid, create, fromList, toList, rows, cols, diag, rdiag, get, set, map)
   where
 
 import List exposing (..)
@@ -15,6 +15,14 @@ For example, `create 3 3 "."` would return:
 create: Int -> Int -> a -> Grid a
 create rows cols fill =
   List.repeat rows (List.repeat cols fill)
+
+fromList: List (List a) -> Grid a
+fromList lst =
+  lst
+
+toList: List (List a) -> Grid a
+toList grid =
+  grid
 
 {-| Get list of rows of the given grid. -}
 rows: Grid a -> List (List a)
@@ -79,7 +87,7 @@ set grid x y value =
 {-| Apply the given (value, row, col) -> mapped_value function to the
 elements of the grid.
 -}
-map: (a -> Int -> Int -> b) -> Grid a -> (List (List b))
+map: (a -> Int -> Int -> b) -> Grid a -> Grid b
 map f grid =
   map_ f grid 0
 
