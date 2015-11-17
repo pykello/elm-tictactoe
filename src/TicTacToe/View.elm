@@ -30,7 +30,7 @@ view_status model =
 {-| Game grid view. -}
 view_grid address grid =
   let
-    cell_view = \cell x y ->
+    cell_view = \x y cell ->
                   td[] [
                     button [
                       cell_button_style,

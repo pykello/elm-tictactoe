@@ -74,27 +74,15 @@ get grid x y =
 {-| Set the element with the given indexes in the grid. -}
 set: Grid a -> Int -> Int -> a -> Grid a
 set grid x y value =
-  map (\cell xx yy -> if (xx, yy) == (x, y) then value else cell) grid
+  map (\xx yy cell -> if (xx, yy) == (x, y) then value else cell) grid
 
 {-| Apply the given (value, row, col) -> mapped_value function to the
 elements of the grid.
 -}
-map: (a -> Int -> Int -> b) -> Grid a -> (List (List b))
+map: (Int -> Int -> a -> b) -> Grid a -> (List (List b))
 map f grid =
-  map_ f grid 0
+  List.indexedMap (map_row f) grid 
 
-map_ f grid x =
-  case grid of
-     [] ->
-       []
-     row::rest ->
-       (map_row_ f row x 0)::
-       (map_ f rest (x+1))
-
-map_row_ f row x y =
-  case row of
-     [] ->
-       []
-     cell::rest ->
-       (f cell x y)::
-       (map_row_ f rest x (y+1))
+map_row: (Int -> Int -> a -> b) -> Int -> List a -> List b
+map_row f x row =
+  List.indexedMap (f x) row
