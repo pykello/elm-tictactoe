@@ -1,10 +1,10 @@
-# TicTacToe in Elm
+# Tic-tac-toe in Elm
 
-This is Tic Tac Toe written in Elm Language.
+This is [tic-tac-toe](https://en.wikipedia.org/wiki/Tic-tac-toe) written in [Elm language](http://elm-lang.org/). I wrote it as my first attempt to learn Elm.
 
 # Building
 
-Run the following command to generate a HTML file which implements Tic Tac Toe:
+Run the following command to generate a HTML file which implements tic-tac-toe:
 
 ```
 elm make tictactoe.elm --output=tictactoe.html
