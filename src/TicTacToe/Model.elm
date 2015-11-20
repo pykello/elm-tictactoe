@@ -32,10 +32,9 @@ get_winner model =
     xpath = List.repeat model.size "X"
     opath = List.repeat model.size "O"
   in
-    if 
-      | List.member xpath paths -> Just "X"
-      | List.member opath paths -> Just "O"
-      | otherwise -> Nothing
+    if List.member xpath paths then Just "X"
+    else if List.member opath paths then Just "O"
+    else Nothing
 
 {-| Did game end in draw? -}
 is_draw: Model -> Bool
